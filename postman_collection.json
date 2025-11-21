@@ -1,0 +1,285 @@
+{
+  "info": {
+    "name": "Portfolio Backend API",
+    "_postman_id": "c5c5f4ce-0000-0000-0000-abcdefabcdef",
+    "description": "CRUD requests for contacts, projects, services, users",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Root",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:4000/"
+      }
+    },
+    {
+      "name": "Contacts",
+      "item": [
+        {
+          "name": "Get all contacts",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:4000/api/contacts"
+          }
+        },
+        {
+          "name": "Create contact",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"firstname\": \"Ada\", \"lastname\": \"Lovelace\", \"email\": \"ada@example.com\"}"
+            },
+            "url": "http://localhost:4000/api/contacts"
+          }
+        },
+        {
+          "name": "Get by id (replace :id)",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:4000/api/contacts/:id"
+          }
+        },
+        {
+          "name": "Update by id (replace :id)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"firstname\": \"Ada\", \"lastname\": \"Lovelace\", \"email\": \"ada@history.dev\"}"
+            },
+            "url": "http://localhost:4000/api/contacts/:id"
+          }
+        },
+        {
+          "name": "Delete by id (replace :id)",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/api/contacts/:id"
+          }
+        },
+        {
+          "name": "Delete all",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/api/contacts"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "item": [
+        {
+          "name": "Get all projects",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:4000/api/projects"
+          }
+        },
+        {
+          "name": "Create project",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\": \"My Portfolio\", \"completion\": \"2024-10-01\", \"description\": \"Personal site\"}"
+            },
+            "url": "http://localhost:4000/api/projects"
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:4000/api/projects/:id"
+          }
+        },
+        {
+          "name": "Update by id",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\": \"My Portfolio v2\", \"completion\": \"2024-10-15\", \"description\": \"Updated desc\"}"
+            },
+            "url": "http://localhost:4000/api/projects/:id"
+          }
+        },
+        {
+          "name": "Delete by id",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/api/projects/:id"
+          }
+        },
+        {
+          "name": "Delete all",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/api/projects"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Services",
+      "item": [
+        {
+          "name": "Get all services",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:4000/api/services"
+          }
+        },
+        {
+          "name": "Create service",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\": \"Web Development\", \"description\": \"Full-stack apps\"}"
+            },
+            "url": "http://localhost:4000/api/services"
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:4000/api/services/:id"
+          }
+        },
+        {
+          "name": "Update by id",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\": \"Web Dev\", \"description\": \"Apps and APIs\"}"
+            },
+            "url": "http://localhost:4000/api/services/:id"
+          }
+        },
+        {
+          "name": "Delete by id",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/api/services/:id"
+          }
+        },
+        {
+          "name": "Delete all",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/api/services"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get all users",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:4000/api/users"
+          }
+        },
+        {
+          "name": "Create user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"firstname\": \"Grace\", \"lastname\": \"Hopper\", \"email\": \"grace@navy.mil\", \"password\": \"secret123\"}"
+            },
+            "url": "http://localhost:4000/api/users"
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:4000/api/users/:id"
+          }
+        },
+        {
+          "name": "Update by id",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"firstname\": \"Grace\", \"lastname\": \"Hopper\", \"email\": \"grace@navy.mil\", \"password\": \"newpass\"}"
+            },
+            "url": "http://localhost:4000/api/users/:id"
+          }
+        },
+        {
+          "name": "Delete by id",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/api/users/:id"
+          }
+        },
+        {
+          "name": "Delete all",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/api/users"
+          }
+        }
+      ]
+    }
+  ]
+}
