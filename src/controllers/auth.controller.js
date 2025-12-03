@@ -43,7 +43,6 @@
 // };
 
 // src/controllers/auth.controller.js
-const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const createError = require('http-errors');
 
@@ -54,19 +53,27 @@ const JWT_EXPIRES_IN = '7d';
 
 exports.signup = async (req, res, next) => {
   try {
-    const { firstName, lastName, email, password } = req.body;
+    // Align field names with schema: firstname, lastname
+    const { firstname, lastname, email, password } = req.body;
     if (!email || !password) return next(createError(400, 'Email and password required'));
 
     const existing = await User.findOne({ email });
     if (existing) return next(createError(409, 'User already exists'));
 
-    const hashed = await bcrypt.hash(password, 10);
-    const user = await User.create({
-      firstName, lastName, email, password: hashed
-    });
+    // Do not hash here; the model pre-save hook will hash the password
+    const user = await User.create({ firstname, lastname, email, password });
 
-    // optionally don't return password
-    res.status(201).json({ id: user._id, email: user.email });
+    // Issue token on successful signup so tests/clients can proceed immediately
+    const token = jwt.sign(
+      { id: user._id.toString(), email: user.email },
+      JWT_SECRET,
+      { expiresIn: JWT_EXPIRES_IN }
+    );
+
+    res.status(201).json({
+      token,
+      user: { id: user._id.toString(), email: user.email, firstname: user.firstname, lastname: user.lastname }
+    });
   } catch (err) {
     next(err);
   }
@@ -80,7 +87,7 @@ exports.signin = async (req, res, next) => {
     const user = await User.findOne({ email });
     if (!user) return next(createError(401, 'Invalid credentials'));
 
-    const ok = await bcrypt.compare(password, user.password);
+    const ok = await user.comparePassword(password);
     if (!ok) return next(createError(401, 'Invalid credentials'));
 
     const token = jwt.sign(

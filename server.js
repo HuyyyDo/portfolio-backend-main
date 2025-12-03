@@ -55,6 +55,8 @@ app.use('/api/users',    userRoutes);
 // - /signup and /signin (legacy / tests that expect root-level auth endpoints)
 app.use('/api/auth', authRoutes);
 app.use('/', authRoutes); // keeps /signin and /signup working (useful for tests and older clients)
+// Also mount under /auth for clients calling /auth/signin or /auth/signup
+app.use('/auth', authRoutes);
 
 // Helper: list registered routes (prints after routes mounted)
 function listRoutes(app) {
