@@ -11,9 +11,9 @@
 
 // module.exports = router;
 
-// src/routes/project.routes.js
+// src/routes/service.routes.js
 const router = require('express').Router();
-const c = require('../controllers/project.controller');
+const c = require('../controllers/service.controller');
 const auth = require('../middleware/auth'); // auth middleware to protect routes
 
 // Public routes (anyone can view)
