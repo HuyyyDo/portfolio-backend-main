@@ -29,7 +29,31 @@ if (!process.env.JWT_SECRET) {
 }
 
 // Middlewares
-app.use(cors());
+// Configure CORS to allow requests from your frontend (Vercel, Vite dev server, etc.)
+const allowedOrigins = [
+  'http://localhost:5173',  // Vite default dev server
+  'http://localhost:3000',  // Alternative local dev
+  'http://localhost:4173',  // Vite preview
+  process.env.FRONTEND_URL, // Your Vercel/production URL
+].filter(Boolean); // Remove undefined values
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps, curl, Postman)
+    if (!origin) return callback(null, true);
+    
+    // Allow if origin is in allowedOrigins or if it's a Vercel deployment
+    if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // Allow cookies if needed
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(morgan('dev'));
 app.use(express.json());
 
