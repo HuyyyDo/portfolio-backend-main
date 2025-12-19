@@ -34,7 +34,8 @@ const allowedOrigins = [
   'http://localhost:5173',  // Vite default dev server
   'http://localhost:3000',  // Alternative local dev
   'http://localhost:4173',  // Vite preview
-  process.env.FRONTEND_URL, // Your Vercel/production URL
+  'https://react-portfolio-app02-main.vercel.app', // Your Vercel deployment
+  process.env.FRONTEND_URL, // Additional frontend URL from env
 ].filter(Boolean); // Remove undefined values
 
 app.use(cors({
@@ -43,9 +44,10 @@ app.use(cors({
     if (!origin) return callback(null, true);
     
     // Allow if origin is in allowedOrigins or if it's a Vercel deployment
-    if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+    if (allowedOrigins.includes(origin) || (origin && origin.endsWith('.vercel.app'))) {
       callback(null, true);
     } else {
+      console.log('CORS blocked origin:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
