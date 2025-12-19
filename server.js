@@ -119,13 +119,27 @@ app.use(errorHandler);
 
 // Boot
 const PORT = process.env.PORT || 4000;
-connectDB(process.env.MONGODB_URI)
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
+
+// For Vercel serverless deployment, connect to DB when the app starts
+// and export the app. For local development, start the server normally.
+if (process.env.VERCEL) {
+  // Running on Vercel - just connect to DB and export app
+  connectDB(process.env.MONGODB_URI)
+    .catch((err) => {
+      console.error('❌ DB connection failed:', err.message);
     });
-  })
-  .catch((err) => {
-    console.error('❌ DB connection failed:', err.message);
-    process.exit(1);
-  });
+  
+  module.exports = app;
+} else {
+  // Running locally - start server normally
+  connectDB(process.env.MONGODB_URI)
+    .then(() => {
+      app.listen(PORT, () => {
+        console.log(`🚀 Server running on http://localhost:${PORT}`);
+      });
+    })
+    .catch((err) => {
+      console.error('❌ DB connection failed:', err.message);
+      process.exit(1);
+    });
+}
